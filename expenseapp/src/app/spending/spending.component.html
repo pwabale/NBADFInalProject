@@ -1,0 +1,105 @@
+<div class="container mt-5">
+  <h2>Spending</h2>
+
+  <!-- Add Spending Button -->
+
+  <!-- Add Spending Button -->
+
+  <div class="row">
+    <div class="col-6">
+      <button
+        class="btn btn-success mb-3"
+        (click)="openAddSpending(content2, 'Add')"
+      >
+        <i class="bi bi-plus"></i> Add Spending
+      </button>
+      <h3>Spending</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col-2">Spending Type</th>
+            <th scope="col-4">Amount</th>
+            <th scope="col-4">Month</th>
+            <th scope="col-4">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample Data -->
+          <tr *ngFor="let spending of spendingItems">
+            <td>{{ spending.budgetTypeId.budgetType }}</td>
+            <td>${{ spending.amountSpent}}</td>
+            <td>{{ spending.month }}</td>
+            <td>
+              <button
+                class="btn btn-warning btn-sm button"
+                (click)="openAddSpending(content2, 'Edit', spending)"
+              >
+                <i class="bi bi-pencil"></i> Update
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Spending Table -->
+</div>
+<ng-template #content2 let-modal2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Spending</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal2.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label for="category">Budget Type </label>
+        <select
+          class="form-control"
+          id="budgetType"
+          name="budgetType"
+          [(ngModel)]="newSpendingItem.budgetTypeId"
+          required
+        >
+          <option *ngFor="let budgetType of budgetTypes" [ngValue]="budgetType._id">
+            {{ budgetType.budgetType }}
+          </option>
+        </select>
+      </div>
+      <!-- select Months -->
+      <div class="mb-3">
+        <label for="category">Month </label>
+        <select
+          class="form-control"
+          id="month"
+          name="month"
+          [(ngModel)]="newSpendingItem.month"
+          required
+        >
+          <option *ngFor="let month of months" [ngValue]="month">
+            {{ month }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="amount">Amount</label>
+        <input
+          type="number"
+          class="form-control"
+          id="amount"
+          placeholder="Enter amount"
+          name="newAmount"
+          [(ngModel)]="newSpendingItem.amountSpent"
+          required
+        />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Save</button>
+    </div>
+  </form>
+</ng-template>

@@ -1,0 +1,138 @@
+<div class="container mt-5">
+  <h2>Budget</h2>
+
+  <!-- Add Budget Button -->
+
+  <!-- Add Budget Button -->
+
+  <div class="row">
+    <div class="col-6">
+      <button
+      class="btn btn-success mb-3"
+      (click)="openAddBudgetType(content1)"
+      style="margin-right: 20px"
+    >
+      <i class="bi bi-plus"></i> Add Budget Type
+    </button>
+      <h3>Budget Type</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col-2">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample Data -->
+          <tr *ngFor="let budget of budgetTypes">
+            <td>{{ budget.budgetType }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-success mb-3" (click)="openAddBudget(content2,'Add')">
+        <i class="bi bi-plus"></i> Add Budget
+      </button>
+      <h3>Budget</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col-2">Budget Type</th>
+            <th scope="col-4">Amount</th>
+            <th scope="col-4">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample Data -->
+          <tr *ngFor="let budget of budgetItems">
+            <td>{{ budget.budgetTypeId.budgetType }}</td>
+            <td>${{ budget.budgetAmount }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm button" (click)="openAddBudget(content2,'Edit',budget)">
+                <i class="bi bi-pencil"></i> Update
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <!-- Budget Table -->
+</div>
+<ng-template #content1 let-modal>
+  <form (ngSubmit)="addBudgetType()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Budget Type</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label for="category">Budget Type</label>
+        <input
+          type="text"
+          class="form-control"
+          id="budgetType"
+          placeholder="Enter budgetType"
+          name="budgetType"
+          [(ngModel)]="newBudgetType.budgetType"
+          required
+        />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Save</button>
+    </div>
+  </form>
+</ng-template>
+<ng-template #content2 let-modal2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Budget</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal2.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label for="category">Budget Type</label>
+        <select
+          class="form-control"
+          id="budgetType"
+          name="budgetType"
+          [(ngModel)]="newBudgetItem.budgetTypeId"
+          required
+          *ngIf="!isEdit"
+        >
+          <option *ngFor="let budget of budgetTypes" [ngValue]="budget._id">{{
+            budget.budgetType
+          }}</option>
+        </select>
+        <input *ngIf="isEdit" type="text" class="form-control" id="budgetId" name="budgetId" [(ngModel)]="newBudgetItem.budgetType" readonly />
+      </div>
+      <div class="mb-3">
+        <label for="amount">Amount</label>
+        <input
+          type="number"
+          class="form-control"
+          id="amount"
+          placeholder="Enter amount"
+          name="newAmount"
+          [(ngModel)]="newBudgetItem.budgetAmount"
+          required
+        />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Save</button>
+    </div>
+  </form>
+</ng-template>

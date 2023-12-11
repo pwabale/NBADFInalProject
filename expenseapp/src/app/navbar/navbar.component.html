@@ -1,0 +1,36 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-primary text-white">
+  <a class="navbar-brand text-white " href="/home">Budget </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav" *ngIf="authService.isUserLoggedIn">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/dashboard">DashBoard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="spending">Spending</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/budget-type">Budget</a>
+      </li>
+    </ul>
+  </div>
+  <!-- login and signup nav -->
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item"  *ngIf="!authService.isUserLoggedIn">
+        <a class="nav-link text-white" href="login">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="!authService.isUserLoggedIn">
+        <a class="nav-link text-white" href="register">Register</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isUserLoggedIn">
+        <a class="nav-link text-white" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+
+</nav>

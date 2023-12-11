@@ -8,6 +8,8 @@ var budgetSchema = new mongoose.Schema({
     },
     budgetTypeId:{
         type:mongoose.Types.ObjectId,
+        required:true,
+        ref:"BudgetType",
         required:true
     },
     budgetAmount: {
