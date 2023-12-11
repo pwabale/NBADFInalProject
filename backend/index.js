@@ -12,6 +12,8 @@ app.listen(port,()=>{
     console.log(`server started on port number ${port}`);
 })
 
+module.exports.app = app;
+
 
 
 //require('dotenv').config(); // Load environment variables from .env file
