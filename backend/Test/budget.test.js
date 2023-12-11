@@ -62,9 +62,6 @@ describe('POST / route', () => {
     // Mocking the validateBudget function
     const validateBudgetStub = sinon.stub().returns({ error: { details: [{ message: 'Validation error' }] } });
 
-    // Replace the actual validateBudget function with the stub
-    jest.mock('./your-validation-module', () => ({ validateBudget: validateBudgetStub }));
-
     const fakeReq = {
       user: { _id: 'fakeUserId' },
       body: {
@@ -81,8 +78,5 @@ describe('POST / route', () => {
     // Assertions
     expect(response.status).toBe(400);
     expect(response.text).toBe('Validation error');
-
-    // Restore the original method
-    jest.unmock('./your-validation-module');
   });
 });
